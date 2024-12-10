@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.4.0</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.example</groupId>
+	<artifactId>springbootLogistic-api</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Springboot Logistic API</name> <!-- Use a meaningful name -->
+	<description>Logistics Web Application with Spring Boot</description> <!-- More descriptive description -->
+	<url>https://github.com/your-repository-url</url> <!-- Optional: Link to your project's GitHub repository -->
+	<licenses>
+		<license>
+			<name>Apache 2.0</name>
+			<url>https://www.apache.org/licenses/LICENSE-2.0</url>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<name>A Anto Kelvin Prabhu</name> <!-- Your full name -->
+			<email>antokelvin.prabhu@msam.christuniversity.in</email> <!-- Optional: Your email address -->
+		</developer>
+	</developers>
+	<scm>
+		<connection>scm:git:git://github.com/your-repository-url.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/your-repository-url.git</developerConnection>
+		<tag>HEAD</tag>
+		<url>https://github.com/kelvinprabhu</url>
+	</scm>
+	<properties>
+		<java.version>23</java.version>
+	</properties>
+	<dependencies>
+		<!-- Core Spring Boot dependencies -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+		<!-- Unit testing dependency -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- MySQL Driver -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.26</version>
+		</dependency>
+		<!-- Web support -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<!-- Additional dependencies if needed -->
+		    <!-- Spring Data JPA -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!-- Plugin to create the executable JAR for Spring Boot application -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
