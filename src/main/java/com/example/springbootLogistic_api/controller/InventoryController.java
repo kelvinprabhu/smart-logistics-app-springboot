@@ -16,20 +16,30 @@ public class InventoryController {
     private InventoryService inventoryService;
 
     @PostMapping
-    public ResponseEntity<Inventory> createInventory(@RequestBody Inventory inventory) {
-        return ResponseEntity.ok(inventoryService.createInventory(inventory));
+    public ResponseEntity<Inventory> addInventory(@RequestBody Inventory inventory) {
+        Inventory newInventory = inventoryService.addInventory(inventory);
+        return ResponseEntity.ok(newInventory);
     }
 
     @GetMapping
     public ResponseEntity<List<Inventory>> getAllInventory() {
-        return ResponseEntity.ok(inventoryService.getAllInventory());
+        List<Inventory> inventoryList = inventoryService.getAllInventory();
+        return ResponseEntity.ok(inventoryList);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Inventory> getInventoryById(@PathVariable int id) {
-        return inventoryService.getInventoryById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        Inventory inventory = inventoryService.getInventoryById(id);
+        if (inventory != null) {
+            return ResponseEntity.ok(inventory);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/warehouse/{warehouseId}")
+    public ResponseEntity<List<Inventory>> getInventoryByWarehouse(@PathVariable int warehouseId) {
+        List<Inventory> inventoryList = inventoryService.getInventoryByWarehouse(warehouseId);
+        return ResponseEntity.ok(inventoryList);
     }
 
     @PutMapping("/{id}")
@@ -43,9 +53,7 @@ public class InventoryController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteInventory(@PathVariable int id) {
-        if (inventoryService.deleteInventory(id)) {
-            return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.notFound().build();
+        inventoryService.deleteInventory(id);
+        return ResponseEntity.noContent().build();
     }
 }

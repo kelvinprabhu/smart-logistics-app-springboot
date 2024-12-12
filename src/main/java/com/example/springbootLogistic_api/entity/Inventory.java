@@ -1,6 +1,8 @@
 package com.example.springbootLogistic_api.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+
 import java.sql.Timestamp;
 
 @Entity
@@ -9,11 +11,11 @@ public class Inventory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id; // Changed to Long for scalability
 
-    @ManyToOne
-    @JoinColumn(name = "warehouse_id", nullable = false)
-    private LogisticData warehouse; // Refers to `logistic_data`
+    @ManyToOne(fetch = FetchType.LAZY) // Added fetch type for better performance
+    @JoinColumn(name = "warehouse_id", referencedColumnName = "warehouse_id", nullable = false)
+    private Warehouse warehouse;
 
     @Column(name = "product_name", nullable = false)
     private String productName;
@@ -24,23 +26,24 @@ public class Inventory {
     @Column(name = "min_threshold", nullable = false)
     private int minThreshold;
 
-    @Column(name = "created_at", updatable = false, insertable = false)
+    @CreationTimestamp // Automatically sets the created_at value
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Timestamp createdAt;
 
     // Getters and Setters
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public LogisticData getWarehouse() {
+    public Warehouse getWarehouse() {
         return warehouse;
     }
 
-    public void setWarehouse(LogisticData warehouse) {
+    public void setWarehouse(Warehouse warehouse) {
         this.warehouse = warehouse;
     }
 

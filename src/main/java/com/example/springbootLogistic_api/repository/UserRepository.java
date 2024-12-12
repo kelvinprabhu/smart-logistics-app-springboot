@@ -1,3 +1,4 @@
+package com.example.springbootLogistic_api.repository;
 // package com.example.springbootLogistic_api.repository;
 
 // import com.example.springbootLogistic_api.entity.User;

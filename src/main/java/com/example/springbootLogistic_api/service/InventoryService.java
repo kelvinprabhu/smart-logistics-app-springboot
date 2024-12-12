@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class InventoryService {
@@ -14,7 +13,7 @@ public class InventoryService {
     @Autowired
     private InventoryRepository inventoryRepository;
 
-    public Inventory createInventory(Inventory inventory) {
+    public Inventory addInventory(Inventory inventory) {
         return inventoryRepository.save(inventory);
     }
 
@@ -22,24 +21,27 @@ public class InventoryService {
         return inventoryRepository.findAll();
     }
 
-    public Optional<Inventory> getInventoryById(int id) {
-        return inventoryRepository.findById(id);
+    public Inventory getInventoryById(int id) {
+        return inventoryRepository.findById(id).orElse(null);
+    }
+
+    public List<Inventory> getInventoryByWarehouse(int warehouseId) {
+        return inventoryRepository.findByWarehouseId(warehouseId);
     }
 
     public Inventory updateInventory(int id, Inventory inventoryDetails) {
-        return inventoryRepository.findById(id).map(inventory -> {
+        Inventory inventory = inventoryRepository.findById(id).orElse(null);
+        if (inventory != null) {
+            inventory.setWarehouse(inventoryDetails.getWarehouse());
             inventory.setProductName(inventoryDetails.getProductName());
             inventory.setQuantity(inventoryDetails.getQuantity());
             inventory.setMinThreshold(inventoryDetails.getMinThreshold());
             return inventoryRepository.save(inventory);
-        }).orElse(null);
+        }
+        return null;
     }
 
-    public boolean deleteInventory(int id) {
-        if (inventoryRepository.existsById(id)) {
-            inventoryRepository.deleteById(id);
-            return true;
-        }
-        return false;
+    public void deleteInventory(int id) {
+        inventoryRepository.deleteById(id);
     }
 }
