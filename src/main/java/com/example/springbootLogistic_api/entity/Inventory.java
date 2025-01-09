@@ -1,6 +1,9 @@
 package com.example.springbootLogistic_api.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
@@ -11,15 +14,17 @@ public class Inventory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // Changed to Long for scalability
+    private int id; // Changed to Long for scalability
 
     @ManyToOne(fetch = FetchType.LAZY) // Added fetch type for better performance
     @JoinColumn(name = "warehouse_id", referencedColumnName = "warehouse_id", nullable = false)
     private Warehouse warehouse;
 
+    @NotBlank(message = "Product name is required")
     @Column(name = "product_name", nullable = false)
     private String productName;
 
+    @Min(value = 0, message = "Quantity must be a positive value")
     @Column(nullable = false)
     private int quantity;
 
@@ -31,11 +36,11 @@ public class Inventory {
     private Timestamp createdAt;
 
     // Getters and Setters
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

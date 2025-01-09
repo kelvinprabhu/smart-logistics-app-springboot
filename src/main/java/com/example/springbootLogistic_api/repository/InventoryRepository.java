@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface InventoryRepository extends JpaRepository<Inventory, Integer> {
     List<Inventory> findByWarehouseId(int warehouseId);
+
 }

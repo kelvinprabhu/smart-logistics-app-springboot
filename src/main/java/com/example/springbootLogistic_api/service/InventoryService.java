@@ -1,7 +1,12 @@
 package com.example.springbootLogistic_api.service;
 
 import com.example.springbootLogistic_api.entity.Inventory;
+import com.example.springbootLogistic_api.entity.Warehouse;
 import com.example.springbootLogistic_api.repository.InventoryRepository;
+import com.example.springbootLogistic_api.repository.WarehouseRepository;
+
+import jakarta.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +17,19 @@ public class InventoryService {
 
     @Autowired
     private InventoryRepository inventoryRepository;
+    @Autowired
+    private WarehouseRepository warehouseRepository;
 
     public Inventory addInventory(Inventory inventory) {
+        // Fetch the warehouse from the database
+        Warehouse warehouse = warehouseRepository.findById(inventory.getWarehouse().getId().intValue())
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Warehouse not found with ID: " + inventory.getWarehouse().getId()));
+
+        // Set the warehouse to the inventory
+        inventory.setWarehouse(warehouse);
+
+        // Save the inventory
         return inventoryRepository.save(inventory);
     }
 

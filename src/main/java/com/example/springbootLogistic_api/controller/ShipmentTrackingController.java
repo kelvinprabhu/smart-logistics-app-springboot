@@ -1,6 +1,6 @@
 package com.example.springbootLogistic_api.controller;
 
-import com.example.springbootLogistic_api.entity.ShipmentTracking;
+import com.example.springbootLogistic_api.entity.Shipment;
 import com.example.springbootLogistic_api.service.ShipmentTrackingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,30 +17,30 @@ public class ShipmentTrackingController {
 
     // Create a new shipment tracking record
     @PostMapping
-    public ResponseEntity<ShipmentTracking> createShipmentTracking(@RequestBody ShipmentTracking shipmentTracking) {
-        ShipmentTracking createdShipmentTracking = shipmentTrackingService.createShipmentTracking(shipmentTracking);
+    public ResponseEntity<Shipment> createShipmentTracking(@RequestBody Shipment shipmentTracking) {
+        Shipment createdShipmentTracking = shipmentTrackingService.createShipmentTracking(shipmentTracking);
         return ResponseEntity.ok(createdShipmentTracking);
     }
 
     // Get all shipment tracking records
     @GetMapping
-    public ResponseEntity<List<ShipmentTracking>> getAllShipmentTrackings() {
-        List<ShipmentTracking> shipmentTrackings = shipmentTrackingService.getAllShipmentTrackings();
+    public ResponseEntity<List<Shipment>> getAllShipmentTrackings() {
+        List<Shipment> shipmentTrackings = shipmentTrackingService.getAllShipmentTrackings();
         return ResponseEntity.ok(shipmentTrackings);
     }
 
     // Get a shipment tracking record by ID
     @GetMapping("/{id}")
-    public ResponseEntity<ShipmentTracking> getShipmentTrackingById(@PathVariable int id) {
-        ShipmentTracking shipmentTracking = shipmentTrackingService.getShipmentTrackingById(id);
+    public ResponseEntity<Shipment> getShipmentTrackingById(@PathVariable int id) {
+        Shipment shipmentTracking = shipmentTrackingService.getShipmentTrackingById(id);
         return ResponseEntity.ok(shipmentTracking);
     }
 
     // Update a shipment tracking record
     @PutMapping("/{id}")
-    public ResponseEntity<ShipmentTracking> updateShipmentTracking(
-            @PathVariable int id, @RequestBody ShipmentTracking updatedShipmentTracking) {
-        ShipmentTracking shipmentTracking = shipmentTrackingService.updateShipmentTracking(id, updatedShipmentTracking);
+    public ResponseEntity<Shipment> updateShipmentTracking(
+            @PathVariable int id, @RequestBody Shipment updatedShipmentTracking) {
+        Shipment shipmentTracking = shipmentTrackingService.updateShipmentTracking(id, updatedShipmentTracking);
         return ResponseEntity.ok(shipmentTracking);
     }
 

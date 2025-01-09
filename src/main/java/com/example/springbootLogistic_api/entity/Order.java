@@ -18,7 +18,7 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "warehouse_id", nullable = false)
-    private LogisticData warehouse; // Refers to `logistic_data`
+    private Warehouse warehouse; // Refers to `logistic_data`
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -53,11 +53,11 @@ public class Order {
         this.customer = customer;
     }
 
-    public LogisticData getWarehouse() {
+    public Warehouse getWarehouse() {
         return warehouse;
     }
 
-    public void setWarehouse(LogisticData warehouse) {
+    public void setWarehouse(Warehouse warehouse) {
         this.warehouse = warehouse;
     }
 

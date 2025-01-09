@@ -1,128 +1,93 @@
 package com.example.springbootLogistic_api.entity;
 
 import jakarta.persistence.*;
-import java.sql.Timestamp;
-import java.util.Objects;
+import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "shipment_tracking")
+@Table(name = "shipment_tracking_")
 public class ShipmentTracking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer trackingId;
 
-    @Column(name = "order_id", nullable = false)
-    private int orderId; // Foreign key to `orders.id`
-
-    @Column(name = "current_location", nullable = false)
-    private String currentLocation;
-
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Status status; // Enum for shipment status
+    private Integer orderId;
 
-    @Column(name = "last_updated", nullable = false, insertable = false, updatable = true)
-    private Timestamp lastUpdated;
+    @Column(length = 50, nullable = false)
+    private String shipmentStatus;
 
-    @Column(name = "created_at", nullable = false, insertable = false, updatable = false)
-    private Timestamp createdAt;
+    private LocalDateTime shippedDate;
 
-    // Enum for shipment status
-    public enum Status {
-        IN_TRANSIT, DELIVERED, RETURNED
-    }
+    private LocalDate expectedDeliveryDate;
 
-    // Default Constructor
-    public ShipmentTracking() {
-    }
+    private LocalDate actualDeliveryDate;
 
-    // Parameterized Constructor
-    public ShipmentTracking(int orderId, String currentLocation, Status status) {
-        this.orderId = orderId;
-        this.currentLocation = currentLocation;
-        this.status = status;
-    }
+    @Column(length = 100)
+    private String carrier;
+
+    @Column(updatable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     // Getters and Setters
-    public int getId() {
-        return id;
+    public Integer getTrackingId() {
+        return trackingId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setTrackingId(Integer trackingId) {
+        this.trackingId = trackingId;
     }
 
-    public int getOrderId() {
+    public Integer getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
+    public void setOrderId(Integer orderId) {
         this.orderId = orderId;
     }
 
-    public String getCurrentLocation() {
-        return currentLocation;
+    public String getShipmentStatus() {
+        return shipmentStatus;
     }
 
-    public void setCurrentLocation(String currentLocation) {
-        this.currentLocation = currentLocation;
+    public void setShipmentStatus(String shipmentStatus) {
+        this.shipmentStatus = shipmentStatus;
     }
 
-    public Status getStatus() {
-        return status;
+    public LocalDateTime getShippedDate() {
+        return shippedDate;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setShippedDate(LocalDateTime shippedDate) {
+        this.shippedDate = shippedDate;
     }
 
-    public Timestamp getLastUpdated() {
-        return lastUpdated;
+    public LocalDate getExpectedDeliveryDate() {
+        return expectedDeliveryDate;
     }
 
-    public void setLastUpdated(Timestamp lastUpdated) {
-        this.lastUpdated = lastUpdated;
+    public void setExpectedDeliveryDate(LocalDate expectedDeliveryDate) {
+        this.expectedDeliveryDate = expectedDeliveryDate;
     }
 
-    public Timestamp getCreatedAt() {
+    public LocalDate getActualDeliveryDate() {
+        return actualDeliveryDate;
+    }
+
+    public void setActualDeliveryDate(LocalDate actualDeliveryDate) {
+        this.actualDeliveryDate = actualDeliveryDate;
+    }
+
+    public String getCarrier() {
+        return carrier;
+    }
+
+    public void setCarrier(String carrier) {
+        this.carrier = carrier;
+    }
+
+    public LocalDateTime getCreatedAt() {
         return createdAt;
-    }
-
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    // Override toString method
-    @Override
-    public String toString() {
-        return "ShipmentTracking{" +
-                "id=" + id +
-                ", orderId=" + orderId +
-                ", currentLocation='" + currentLocation + '\'' +
-                ", status=" + status +
-                ", lastUpdated=" + lastUpdated +
-                ", createdAt=" + createdAt +
-                '}';
-    }
-
-    // Override equals method
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-        ShipmentTracking that = (ShipmentTracking) o;
-        return id == that.id &&
-                orderId == that.orderId &&
-                Objects.equals(currentLocation, that.currentLocation) &&
-                status == that.status;
-    }
-
-    // Override hashCode method
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, orderId, currentLocation, status);
     }
 }

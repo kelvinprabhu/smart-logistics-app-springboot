@@ -1,6 +1,6 @@
 package com.example.springbootLogistic_api.service;
 
-import com.example.springbootLogistic_api.entity.ShipmentTracking;
+import com.example.springbootLogistic_api.entity.Shipment;
 import com.example.springbootLogistic_api.repository.ShipmentTrackingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,25 +15,25 @@ public class ShipmentTrackingService {
     private ShipmentTrackingRepository shipmentTrackingRepository;
 
     // Create a new shipment tracking record
-    public ShipmentTracking createShipmentTracking(ShipmentTracking shipmentTracking) {
+    public Shipment createShipmentTracking(Shipment shipmentTracking) {
         return shipmentTrackingRepository.save(shipmentTracking);
     }
 
     // Get all shipment tracking records
-    public List<ShipmentTracking> getAllShipmentTrackings() {
+    public List<Shipment> getAllShipmentTrackings() {
         return shipmentTrackingRepository.findAll();
     }
 
     // Get a shipment tracking record by ID
-    public ShipmentTracking getShipmentTrackingById(int id) {
-        Optional<ShipmentTracking> shipmentTracking = shipmentTrackingRepository.findById(id);
+    public Shipment getShipmentTrackingById(int id) {
+        Optional<Shipment> shipmentTracking = shipmentTrackingRepository.findById(id);
         return shipmentTracking
                 .orElseThrow(() -> new RuntimeException("ShipmentTracking with ID " + id + " not found"));
     }
 
     // Update a shipment tracking record
-    public ShipmentTracking updateShipmentTracking(int id, ShipmentTracking updatedShipmentTracking) {
-        ShipmentTracking existingShipmentTracking = getShipmentTrackingById(id);
+    public Shipment updateShipmentTracking(int id, Shipment updatedShipmentTracking) {
+        Shipment existingShipmentTracking = getShipmentTrackingById(id);
         existingShipmentTracking.setOrderId(updatedShipmentTracking.getOrderId());
         existingShipmentTracking.setCurrentLocation(updatedShipmentTracking.getCurrentLocation());
         existingShipmentTracking.setStatus(updatedShipmentTracking.getStatus());
@@ -43,7 +43,7 @@ public class ShipmentTrackingService {
 
     // Delete a shipment tracking record
     public void deleteShipmentTracking(int id) {
-        ShipmentTracking existingShipmentTracking = getShipmentTrackingById(id);
+        Shipment existingShipmentTracking = getShipmentTrackingById(id);
         shipmentTrackingRepository.delete(existingShipmentTracking);
     }
 }
