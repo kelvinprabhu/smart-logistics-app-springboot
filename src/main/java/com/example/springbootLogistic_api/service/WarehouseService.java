@@ -40,3 +40,4 @@ public class WarehouseService {
         warehouseRepository.deleteById(id);
     }
 }
+// for api end points mvc -- front end in react js
